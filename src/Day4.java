@@ -30,7 +30,7 @@ public class Day4 {
                 System.out.println(intArray[j]);
             }
             // kör vidare med att kolla om det går neråt.
-
+            // test kör apa
 
             // förbereder nästa varv
             if(ok) amountOfPass++;
