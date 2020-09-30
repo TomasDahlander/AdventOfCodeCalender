@@ -6,7 +6,7 @@
  */
 public class Day4 {
     public static void main(String[] args) {
-        int range = 542479;
+        int range = 542480;
         int testValue = 165432;
         int amountOfPass = 0;
         boolean ok;
@@ -14,31 +14,46 @@ public class Day4 {
         for(int i = 0; i < range; i++){
             String pass = testValue+"";
             ok = true;
-
-            // Kolla om det finns en dubbel
-            for(int j = 0; j < 5; j++){
-                if(pass.charAt(j) == pass.charAt(j+1)) break;
-                else if(pass.charAt(j) == pass.charAt(j+1) && j == 4){
-                    ok = false;
-                }
-            }
+            
+            // Kolla om det finns en dubbel    // 834 = för lågt & 1409 = för högt
+            if(pass.charAt(0)==pass.charAt(1) && pass.charAt(0)!=pass.charAt(2)) ok=true;
+            else if(pass.charAt(1)==pass.charAt(2) && pass.charAt(1)!=pass.charAt(0) && pass.charAt(1)!=pass.charAt(3)) ok=true;
+            else if(pass.charAt(2)==pass.charAt(3) && pass.charAt(2)!=pass.charAt(1) && pass.charAt(2)!=pass.charAt(4)) ok=true;
+            else if(pass.charAt(3)==pass.charAt(4) && pass.charAt(3)!=pass.charAt(2) && pass.charAt(3)!=pass.charAt(5)) ok=true;
+            else if(pass.charAt(4)==pass.charAt(5) && pass.charAt(4)!=pass.charAt(3)) ok=true;
+            else ok = false;
 
             // Kolla om det värdet går neråt.
             int [] intArray = new int[6];
             for(int j = 0; j < 6; j++){
                 intArray[j] = Integer.parseInt(pass.charAt(j)+"");
-                System.out.println(intArray[j]);
             }
-            // kör vidare med att kolla om det går neråt.
-            // test kör apa
+            for(int j = 0; j < 5; j++){
+                if(intArray[j]>intArray[j+1]){
+                    ok = false;
+                    break;
+                }
+            }
 
             // förbereder nästa varv
             if(ok) amountOfPass++;
             testValue++;
         }
-
+        System.out.println(amountOfPass);
     }
 }
+/*
+An Elf just remembered one more important detail:
+the two adjacent matching digits are not part of a larger group of matching digits.
+
+Given this additional criterion, but still ignoring the range rule, the following are now true:
+
+* 112233 meets these criteria because the digits never decrease and all repeated digits are exactly two digits long.
+* 123444 no longer meets the criteria (the repeated 44 is part of a larger group of 444).
+* 111122 meets the criteria (even though 1 is repeated more than twice, it still contains a double 22).
+How many different passwords within the range given in your puzzle input meet all of the criteria?
+ */
+
 /*
 However, they do remember a few key facts about the password:
 
